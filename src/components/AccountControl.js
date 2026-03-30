@@ -12,4 +12,4 @@ function AccountControl() {
   );
 }
 
-export default QuizControl;
+export default AccountControl;
