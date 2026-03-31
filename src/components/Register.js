@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { auth } from "./../firebase";
+import auth from "./../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const Register = () => {
+const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const registerUser = (event) => {
@@ -29,6 +29,8 @@ const Register = () => {
             onChange={(event) => setPassword(event.target.value)}/>
           <button type="submit">Register</button>
         </form>
+
+        <button type="button" onClick={props.hideRegister}>Back to Accounts</button>
       </div>
     </React.Fragment>
   );
