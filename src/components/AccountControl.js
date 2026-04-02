@@ -62,11 +62,12 @@ function AccountControl() {
   } else if (historyVisible) {
     currentlyVisibleState = <UserHistory hideHistory={hideHistory}/>;
   } else if (authUser) {
-    <div>
-      <h4>Manage Accounts</h4>
-      <p>Welcome Back, {authUser.email}</p>
-      <button type="button" onClick={userLogOut}>Log Out</button>
-    </div>
+    currentlyVisibleState =
+      <div>
+        <h4>Manage Accounts</h4>
+        <p>Welcome Back, {authUser.email}</p>
+        <button type="button" onClick={userLogOut}>Log Out</button>
+      </div>
   } else {
     currentlyVisibleState = 
       <div>
