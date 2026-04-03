@@ -8,6 +8,7 @@ const Register = (props) => {
   const registerUser = (event) => {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, email, password);
+    props.hideRegister();
   }
 
   return (
