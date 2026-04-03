@@ -5,9 +5,11 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const logUserIn = (event) => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password);
+    props.hideLogin();
   }
 
   return (
