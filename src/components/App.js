@@ -6,33 +6,24 @@ import Header from "./Header";
 function App() {
   const [quizControlVisible, setQuizControlVisible] = useState(false);
 
-  const handleAcctCtrlClicked = () => {
-    if (quizControlVisible) {
-      setQuizControlVisible(false);
-      document.getElementById("account-button").toggleAttribute("disabled");
-      document.getElementById("quiz-button").toggleAttribute("disabled");
-    }
-  }
-
-  const handleQuizCtrlClicked = () => {
-    if (quizControlVisible === false) {
-      setQuizControlVisible(true);
-      document.getElementById("account-button").toggleAttribute("disabled");
-      document.getElementById("quiz-button").toggleAttribute("disabled");
-    }
+  const toggleControlState = () => {
+    setQuizControlVisible(!quizControlVisible)
   }
 
   let currentlyVisibleState = null;
+  let buttonText = null;
 
   if (quizControlVisible) {
     currentlyVisibleState = <QuizControl/>;
+    buttonText = "Manage Accounts"
   } else {
     currentlyVisibleState = <AccountControl/>;
+    buttonText = "View Quizzes"
   }
 
   return (
     <React.Fragment>
-      <Header handleQuizCtrlClicked={handleQuizCtrlClicked} handleAcctCtrlClicked={handleAcctCtrlClicked}/>
+      <Header buttonText={buttonText} toggleControlState={toggleControlState}/>
       {currentlyVisibleState}
     </React.Fragment>
   );
