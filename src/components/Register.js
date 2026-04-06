@@ -5,10 +5,21 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
   const registerUser = (event) => {
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password);
-    props.hideRegister();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => props.hideRegister())
+      .catch((error) => {
+        setError(error);
+      });
+  }
+
+  let currentlyVisibleState = null;
+
+  if (error) {
+    currentlyVisibleState = <p>There was an error: {error.message}</p>
   }
 
   return (
@@ -30,6 +41,7 @@ const Register = (props) => {
             onChange={(event) => setPassword(event.target.value)}/>
           <button type="submit">Register</button>
         </form>
+        {currentlyVisibleState}
 
         <button type="button" onClick={props.hideRegister}>Back to Accounts</button>
       </div>
