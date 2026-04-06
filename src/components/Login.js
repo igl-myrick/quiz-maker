@@ -5,11 +5,21 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const logUserIn = (event) => {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, email, password);
-    props.hideLogin();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => props.hideLogin())
+      .catch((error) => {
+        setError(error);
+      });
+  }
+
+  let currentlyVisibleState = null;
+
+  if (error) {
+    currentlyVisibleState = <p>There was an error: {error.message}</p>
   }
 
   return (
@@ -31,6 +41,7 @@ const Login = (props) => {
             onChange={(event) => setPassword(event.target.value)}/>
           <button type="submit">Log in</button>
         </form>
+        {currentlyVisibleState}
         
         <button type="button" onClick={props.hideLogin}>Back to Accounts</button>
       </div>
