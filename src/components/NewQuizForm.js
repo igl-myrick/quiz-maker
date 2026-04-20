@@ -4,7 +4,6 @@ function NewQuizForm() {
   const [setupDivVisible, setSetupDivVisible] = useState(true);
   const [questionCount, setQuestionCount] = useState(0);
   const [title, setTitle] = useState("");
-  const [input, setInput] = useState({question: ""});
 
   const handleSetupSubmission = (event) => {
     event.preventDefault();
@@ -16,7 +15,15 @@ function NewQuizForm() {
   const populateForm = () => {
     let inputList = [];
     for (let i = 0; i < questionCount; i++) {
-      inputList.push(i + 1);
+      inputList.push(
+        <div key={i}>
+          <p>Question #{i+1}</p>
+          <input
+            name={`question${i+1}`}
+            type="text"
+            maxLength={60}/>
+        </div>
+      )
     }
     return inputList;
   }
