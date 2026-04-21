@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 
-function NewQuizForm() {
+function NewQuizForm(props) {
   const [setupDivVisible, setSetupDivVisible] = useState(true);
   const [questionCount, setQuestionCount] = useState(0);
   const [title, setTitle] = useState("");
+  const [formData, setFormData] = useState({});
 
   const handleSetupSubmission = (event) => {
     event.preventDefault();
     setQuestionCount(event.target.number.value);
     setTitle(event.target.title.value);
     setSetupDivVisible(false);
+  }
+
+  const handleFormField = (event) => {
+    let key = event.target.name;
+    let val = event.target.value;
+
+    setFormData({...formData, [key]: val});
+  }
+
+  const handleQuizSubmission = (event) => {
+    event.preventDefault();
+    console.log(formData);
   }
 
   const populateForm = () => {
@@ -21,6 +34,7 @@ function NewQuizForm() {
           <input
             name={`question${i+1}`}
             type="text"
+            onChange={handleFormField}
             maxLength={60}/>
         </div>
       )
@@ -44,7 +58,7 @@ function NewQuizForm() {
     currentlyVisibleState =
       <div>
         <h5>{title}</h5>
-        <form>
+        <form onSubmit={handleQuizSubmission}>
           {elems}
           <button type="submit">Submit</button>
         </form>
