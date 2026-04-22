@@ -22,7 +22,7 @@ function NewQuizForm(props) {
 
   const handleQuizSubmission = (event) => {
     event.preventDefault();
-    console.log(formData);
+    props.getQuizData(title, formData);
   }
 
   const populateForm = () => {
