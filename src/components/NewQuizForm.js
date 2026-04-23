@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 } from "uuid";
 
 function NewQuizForm(props) {
   const [setupDivVisible, setSetupDivVisible] = useState(true);
@@ -22,7 +23,11 @@ function NewQuizForm(props) {
 
   const handleQuizSubmission = (event) => {
     event.preventDefault();
-    props.getQuizData(title, formData);
+    props.getQuizData({
+      title: title,
+      formData: formData,
+      id: v4()
+    });
   }
 
   const populateForm = () => {
@@ -70,7 +75,7 @@ function NewQuizForm(props) {
       <h4>Create a New Quiz</h4>
       {currentlyVisibleState}
     </React.Fragment>
-  )
+  );
 }
 
 export default NewQuizForm;
