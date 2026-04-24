@@ -41,6 +41,11 @@ function NewQuizForm(props) {
             type="text"
             onChange={handleFormField}
             maxLength={60}/>
+          <input
+            name={`answer${i+1}`}
+            type="text"
+            onChange={handleFormField}
+            maxLength={60}/>
         </div>
       )
     }
