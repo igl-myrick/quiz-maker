@@ -1,13 +1,9 @@
 import React from "react";
 
 function Quiz(props) {
-  const {title, formData} = props;
+  const {title, formData, id} = props;
 
-  let count = 0;
-
-  for (const pair in formData) {
-    count++;
-  }
+  const count = (Object.entries(formData).length / 2);
 
   return (
     <React.Fragment>
