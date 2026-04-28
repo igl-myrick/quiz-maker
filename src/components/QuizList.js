@@ -7,7 +7,7 @@ function QuizList(props) {
       {props.quizList.map((quiz) =>
         <Quiz
           title={quiz.title}
-          quizData={quiz.quizData}
+          formData={quiz.formData}
           id={quiz.id}
           key={quiz.id}/>
       )}
