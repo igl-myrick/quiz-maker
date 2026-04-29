@@ -1,11 +1,11 @@
 import React from "react";
-import Quiz from "./Quiz";
+import QuizPreview from "./QuizPreview";
 
 function QuizList(props) {
   return (
     <React.Fragment>
       {props.quizList.map((quiz) =>
-        <Quiz
+        <QuizPreview
           title={quiz.title}
           formData={quiz.formData}
           id={quiz.id}
