@@ -8,7 +8,8 @@ function QuizList(props) {
         <QuizPreview
           onPreviewClicked={props.onPreviewClicked}
           title={quiz.title}
-          formData={quiz.formData}
+          questionList={quiz.questionList}
+          answerList={quiz.answerList}
           id={quiz.id}
           key={quiz.id}/>
       )}
