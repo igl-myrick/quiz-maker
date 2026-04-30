@@ -6,6 +6,7 @@ function QuizList(props) {
     <React.Fragment>
       {props.quizList.map((quiz) =>
         <QuizPreview
+          onPreviewClicked={props.onPreviewClicked}
           title={quiz.title}
           formData={quiz.formData}
           id={quiz.id}
