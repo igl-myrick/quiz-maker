@@ -5,7 +5,8 @@ function NewQuizForm(props) {
   const [setupDivVisible, setSetupDivVisible] = useState(true);
   const [questionCount, setQuestionCount] = useState(0);
   const [title, setTitle] = useState("");
-  const [formData, setFormData] = useState({});
+  const [questionList, setQuestionList] = useState({});
+  const [answerList, setAnswerList] = useState({});
 
   const handleSetupSubmission = (event) => {
     event.preventDefault();
@@ -14,18 +15,26 @@ function NewQuizForm(props) {
     setSetupDivVisible(false);
   }
 
-  const handleFormField = (event) => {
+  const getQuestions = (event) => {
     let key = event.target.name;
     let val = event.target.value;
 
-    setFormData({...formData, [key]: val});
+    setQuestionList({...questionList, [key]: val});
+  }
+
+  const getAnswers = (event) => {
+    let key = event.target.name;
+    let val = event.target.value;
+
+    setAnswerList({...answerList, [key]: val});
   }
 
   const handleQuizSubmission = (event) => {
     event.preventDefault();
     props.getQuizData({
       title: title,
-      formData: formData,
+      questionList: questionList,
+      answerList: answerList,
       id: v4()
     });
   }
@@ -39,12 +48,12 @@ function NewQuizForm(props) {
           <input
             name={`question${i+1}`}
             type="text"
-            onChange={handleFormField}
+            onChange={getQuestions}
             maxLength={60}/>
           <input
             name={`answer${i+1}`}
             type="text"
-            onChange={handleFormField}
+            onChange={getAnswers}
             maxLength={60}/>
         </div>
       )
