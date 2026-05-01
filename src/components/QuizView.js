@@ -4,19 +4,22 @@ function QuizView(props) {
   const { quiz } = props;
 
   const populateForm = () => {
+    const questionValues = Object.values(quiz.questionList);
     let formArr = [];
-    for (let i = 0; i < Object.values(quiz.questionList).length; i++) {
-      const elem =
+
+    for (let i = 0; i < questionValues.length; i++) {
+      const formElem =
         <div key={i}>
-          <label htmlFor={`question${i}`}>{Object.values(quiz.questionList)[i]}</label>
+          <label htmlFor={`question${i}`}>{questionValues[i]}</label>
           <br/>
           <input
             id={`question${i}`}
             type="text"
             maxLength={60}/>
         </div>
-      formArr.push(elem);
+      formArr.push(formElem);
     }
+    
     return formArr;
   }
 
