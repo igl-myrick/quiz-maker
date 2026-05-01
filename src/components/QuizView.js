@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 function QuizView(props) {
   const { quiz } = props;
+
+  const [userAnswers, setUserAnswers] = useState({});
+
+  const getAnswers = (event) => {
+    let key = event.target.name;
+    let val = event.target.value;
+
+    setUserAnswers({...userAnswers, [key]: val});
+  }
+
+  const handleQuizSubmission = (event) => {
+    event.preventDefault();
+    console.log(userAnswers);
+  }
 
   const populateForm = () => {
     const questionValues = Object.values(quiz.questionList);
@@ -10,11 +24,12 @@ function QuizView(props) {
     for (let i = 0; i < questionValues.length; i++) {
       const formElem =
         <div key={i}>
-          <label htmlFor={`question${i}`}>{questionValues[i]}</label>
+          <label htmlFor={`question${i+1}`}>{questionValues[i]}</label>
           <br/>
           <input
-            id={`question${i}`}
+            name={`question${i+1}`}
             type="text"
+            onChange={getAnswers}
             maxLength={60}/>
         </div>
       formArr.push(formElem);
@@ -28,7 +43,7 @@ function QuizView(props) {
   return (
     <React.Fragment>
       <h4>{quiz.title}</h4>
-      <form>
+      <form onSubmit={handleQuizSubmission}>
         {elems}
         <button type="submit">Submit</button>
       </form>
