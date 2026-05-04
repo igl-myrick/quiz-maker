@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import { v4 } from "uuid";
 
 function QuizView(props) {
-  const { quiz } = props;
-
   const [userAnswers, setUserAnswers] = useState({});
 
   const getAnswers = (event) => {
@@ -14,11 +13,14 @@ function QuizView(props) {
 
   const handleQuizSubmission = (event) => {
     event.preventDefault();
-    console.log(userAnswers);
+    props.getQuizResults({
+      userAnswers: userAnswers,
+      resultsId: v4()
+    });
   }
 
   const populateForm = () => {
-    const questionValues = Object.values(quiz.questionList);
+    const questionValues = Object.values(props.quiz.questionList);
     let formArr = [];
 
     for (let i = 0; i < questionValues.length; i++) {
@@ -42,7 +44,7 @@ function QuizView(props) {
 
   return (
     <React.Fragment>
-      <h4>{quiz.title}</h4>
+      <h4>{props.quiz.title}</h4>
       <form onSubmit={handleQuizSubmission}>
         {elems}
         <button type="submit">Submit</button>
