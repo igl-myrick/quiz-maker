@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import NewQuizForm from "./NewQuizForm";
 import QuizList from "./QuizList";
 import QuizView from "./QuizView";
+import QuizResults from "./QuizResults";
 
 function QuizControl() {
   const [newFormVisible, setNewFormVisible] = useState(false);
   const [mainQuizList, setMainQuizList] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [resultsVisible, setResultsVisible] = useState(false);
+  const [currentResults, setCurrentResults] = useState([]);
 
   const handleClick = () => {
     if (selectedQuiz !== null) {
@@ -28,11 +31,24 @@ function QuizControl() {
     setSelectedQuiz(selection);
   }
 
+  const getQuizResults = (results) => {
+    const { questionList, answerList } = selectedQuiz;
+    const { userAnswers, resultsId } = results;
+
+    const resultsData = { questionList, answerList, userAnswers, resultsId };
+    setCurrentResults(resultsData);
+
+    setSelectedQuiz(null);
+    setResultsVisible(true);
+  }
+
   let currentlyVisibleState = null;
   let buttonText = null;
 
-  if (selectedQuiz !== null) {
-    currentlyVisibleState = <QuizView quiz={selectedQuiz}/>
+  if (resultsVisible) {
+    currentlyVisibleState = <QuizResults resultsData={currentResults}/>
+  } else if (selectedQuiz !== null) {
+    currentlyVisibleState = <QuizView quiz={selectedQuiz} getQuizResults={getQuizResults}/>
     buttonText = "Back to Quiz List";
   } else if (newFormVisible) {
     currentlyVisibleState = <NewQuizForm getQuizData={getQuizData}/>
