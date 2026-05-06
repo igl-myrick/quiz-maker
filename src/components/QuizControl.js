@@ -9,7 +9,7 @@ function QuizControl() {
   const [mainQuizList, setMainQuizList] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [resultsVisible, setResultsVisible] = useState(false);
-  const [currentResults, setCurrentResults] = useState([]);
+  const [resultsData, setResultsData] = useState([]);
 
   const handleClick = () => {
     if (selectedQuiz !== null) {
@@ -32,11 +32,12 @@ function QuizControl() {
   }
 
   const getQuizResults = (results) => {
-    const { questionList, answerList } = selectedQuiz;
+    console.log(selectedQuiz);
+    const { title, questionList, answerList } = selectedQuiz;
     const { userAnswers, resultsId } = results;
 
-    const resultsData = { questionList, answerList, userAnswers, resultsId };
-    setCurrentResults(resultsData);
+    const currentResults = { title, questionList, answerList, userAnswers, resultsId };
+    setResultsData(currentResults);
 
     setSelectedQuiz(null);
     setResultsVisible(true);
@@ -46,7 +47,7 @@ function QuizControl() {
   let buttonText = null;
 
   if (resultsVisible) {
-    currentlyVisibleState = <QuizResults resultsData={currentResults}/>
+    currentlyVisibleState = <QuizResults resultsData={resultsData}/>
   } else if (selectedQuiz !== null) {
     currentlyVisibleState = <QuizView quiz={selectedQuiz} getQuizResults={getQuizResults}/>
     buttonText = "Back to Quiz List";
