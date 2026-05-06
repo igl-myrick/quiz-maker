@@ -32,7 +32,6 @@ function QuizControl() {
   }
 
   const getQuizResults = (results) => {
-    console.log(selectedQuiz);
     const { title, questionList, answerList } = selectedQuiz;
     const { userAnswers, resultsId } = results;
 
