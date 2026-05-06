@@ -6,9 +6,9 @@ function QuizResults(props) {
     for (let i = 0; i < Object.entries(props.resultsData.questionList).length; i++) {
       output.push(
         <div key={i}>
-          <p><strong>Question 1:</strong> {props.resultsData.questionList[i]}</p><br/>
-          <p>Answer: {props.resultsData.answerList[i]}</p><br/>
-          <p>Your answer: {props.resultsData.userAnswers[i]}</p>
+          <p><strong>Question {i + 1}: {Object.values(props.resultsData.questionList)[i]}</strong></p>
+          <p>Answer: {Object.values(props.resultsData.answerList)[i]}</p>
+          <p>Your answer: {Object.values(props.resultsData.userAnswers)[i]}</p>
         </div>
       );
     }
@@ -19,6 +19,7 @@ function QuizResults(props) {
  
   return (
     <React.Fragment>
+      <h4>{props.resultsData.title}</h4>
       {elems}
     </React.Fragment>
   );
