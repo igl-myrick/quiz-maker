@@ -5,7 +5,7 @@ function QuizResults(props) {
   const styleWrong = { color: "red" };
 
   const trimInput = (input) => {
-    return input.replace(/[.,\/\\#!$%^&*;:{}=\-_`~()@+"'<>?|]/g, "").toUpperCase();
+    return input.replace(/[.,/\\#!$%^&*;:{}=\s\-_`~()@+"'<>?|]/g, "").toUpperCase();
   }
 
   const displayResults = () => {
