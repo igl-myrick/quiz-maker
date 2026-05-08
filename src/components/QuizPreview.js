@@ -7,10 +7,11 @@ function Quiz(props) {
 
   return (
     <React.Fragment>
-      <div onClick={() => props.onPreviewClicked(id)}>
+      <div>
         <h4>{title}</h4>
         <p>{count} questions</p>
-        <button type="button">Take Quiz</button>
+        <button type="button" onClick={() => props.onPreviewClicked(id)}>Take Quiz</button>
+        <button type="button" onClick={() => props.onEditClicked()}>Edit Quiz</button>
       </div>
     </React.Fragment>
   );
