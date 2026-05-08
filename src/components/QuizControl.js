@@ -45,6 +45,10 @@ function QuizControl() {
     setResultsVisible(true);
   }
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  }
+
   const handleQuizEdit = (quizToEdit) => {
     const editedQuizList = mainQuizList.map(quiz =>
       quiz.id === selectedQuiz.id ? quizToEdit : quiz
