@@ -75,7 +75,7 @@ function QuizControl() {
     currentlyVisibleState = <NewQuizForm getQuizData={getQuizData}/>
     buttonText = "Back to Quiz List";
   } else {
-    currentlyVisibleState = <QuizList quizList={mainQuizList} onPreviewClicked={handleChangingSelectedQuiz}/>
+    currentlyVisibleState = <QuizList quizList={mainQuizList} onPreviewClicked={handleChangingSelectedQuiz} onEditClicked={handleEditClick}/>
     buttonText = "Add a Quiz";
   }
 
