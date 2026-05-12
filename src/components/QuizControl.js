@@ -45,7 +45,8 @@ function QuizControl() {
     setResultsVisible(true);
   }
 
-  const handleEditClick = () => {
+  const handleEditClick = (id) => {
+    handleChangingSelectedQuiz(id);
     setIsEditing(true);
   }
 
