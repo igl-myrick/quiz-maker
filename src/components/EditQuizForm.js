@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
 function EditQuizForm(props) {
-  const { quiz, handleQuizEdit } = props;
+  const { quiz, onQuizEdit } = props;
 
   const [title, setTitle] = useState("");
   const [questionList, setQuestionList] = useState({});
   const [answerList, setAnswerList] = useState({});
 
-  function handleEditQuizFormSubmission(event) {
+  function handleFormSubmission(event) {
     event.preventDefault();
-    handleQuizEdit({
+    onQuizEdit({
       title: title,
       questionList: questionList,
       answerList: answerList,
@@ -37,7 +37,7 @@ function EditQuizForm(props) {
 
   const populateForm = () => {
     let inputList = [];
-    for (let i = 0; i < quiz.questionList.length; i++) {
+    for (let i = 0; i < Object.values(quiz.questionList).length; i++) {
       inputList.push(
         <div key={i}>
           <p>Question #{i+1}</p>
@@ -56,6 +56,7 @@ function EditQuizForm(props) {
         </div>
       );
     }
+    return inputList;
   }
 
   const questionInputs = populateForm();
@@ -63,16 +64,18 @@ function EditQuizForm(props) {
   return (
     <React.Fragment>
       <div id="title-form-wrapper">
-        <form id="title-form">
+        <form id="title-form" onSubmit={handleFormSubmission}>
           <h4>Title</h4>
           <input
             name="title"
             type="text"
             onChange={getTitle}
             maxLength={20}
-            placeholder={title}/><br/>
+            placeholder={quiz.title}/><br/>
 
             {questionInputs}
+
+            <button type="submit" onClick={handleFormSubmission}>Edit</button>
         </form>
       </div>
     </React.Fragment>
