@@ -7,6 +7,7 @@ function QuizList(props) {
       {props.quizList.map((quiz) =>
         <QuizPreview
           onPreviewClicked={props.onPreviewClicked}
+          onEditClicked={props.onEditClicked}
           title={quiz.title}
           questionList={quiz.questionList}
           answerList={quiz.answerList}
