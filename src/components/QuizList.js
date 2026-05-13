@@ -11,8 +11,9 @@ function QuizList(props) {
           title={quiz.title}
           questionList={quiz.questionList}
           answerList={quiz.answerList}
-          id={quiz.id}
-          key={quiz.id}/>
+          quizId={quiz.quizId}
+          userId={quiz.userId}
+          key={quiz.quizId}/>
       )}
     </React.Fragment>
   );

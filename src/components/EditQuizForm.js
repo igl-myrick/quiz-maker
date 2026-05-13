@@ -13,7 +13,8 @@ function EditQuizForm(props) {
       title: title,
       questionList: questionList,
       answerList: answerList,
-      id: quiz.id
+      quizId: quiz.quizId,
+      userId: quiz.userId
     });
   }
 
