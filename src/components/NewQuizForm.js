@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
+import { auth } from "../firebase";
 
 function NewQuizForm(props) {
   const [setupDivVisible, setSetupDivVisible] = useState(true);
@@ -21,7 +22,8 @@ function NewQuizForm(props) {
       title: title,
       questionList: questionList,
       answerList: answerList,
-      id: v4()
+      quizId: v4(),
+      userId: auth.currentUser.uid
     });
   }
 
