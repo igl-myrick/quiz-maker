@@ -14,7 +14,6 @@ function QuizControl() {
   const [resultsVisible, setResultsVisible] = useState(false);
   const [resultsData, setResultsData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [authUser, setAuthUser] = useState(null);
 
   const handleClick = () => {
     if (selectedQuiz !== null) {
@@ -63,13 +62,12 @@ function QuizControl() {
     setSelectedQuiz(null);
   }
 
-
   if (!auth.currentUser) {
     return (
       <React.Fragment>
         <p>You must be signed in to view quizzes!</p>
       </React.Fragment>
-    )
+    );
   } else if (auth.currentUser) {
     let currentlyVisibleState = null;
     let buttonText = null;
