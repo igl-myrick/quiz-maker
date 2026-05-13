@@ -11,9 +11,9 @@ function QuizView(props) {
     setUserAnswers({...userAnswers, [key]: val});
   }
 
-  const handleQuizSubmission = (event) => {
+  const handleResultsSubmission = (event) => {
     event.preventDefault();
-    props.getQuizResults({
+    props.onResultsSubmitted({
       userAnswers: userAnswers,
       resultsId: v4()
     });
@@ -45,7 +45,7 @@ function QuizView(props) {
   return (
     <React.Fragment>
       <h4>{props.quiz.title}</h4>
-      <form onSubmit={handleQuizSubmission}>
+      <form onSubmit={handleResultsSubmission}>
         {elems}
         <button type="submit">Submit</button>
       </form>
