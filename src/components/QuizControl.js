@@ -32,7 +32,7 @@ function QuizControl() {
   }
 
   const handleChangingSelectedQuiz = (id) => {
-    const selection = mainQuizList.find(quiz => quiz.id === id);
+    const selection = mainQuizList.find(quiz => quiz.quizId === id);
     setSelectedQuiz(selection);
   }
 
@@ -54,7 +54,7 @@ function QuizControl() {
 
   const handleQuizEdit = (quizToEdit) => {
     const editedQuizList = mainQuizList.map(quiz =>
-      quiz.id === selectedQuiz.id ? quizToEdit : quiz
+      quiz.quizId === selectedQuiz.quizId ? quizToEdit : quiz
     );
 
     setMainQuizList(editedQuizList);
