@@ -15,6 +15,16 @@ function NewQuizForm(props) {
     setSetupDivVisible(false);
   }
 
+  const handleQuizSubmission = (event) => {
+    event.preventDefault();
+    props.onQuizCreation({
+      title: title,
+      questionList: questionList,
+      answerList: answerList,
+      id: v4()
+    });
+  }
+
   const getQuestions = (event) => {
     let key = event.target.name;
     let val = event.target.value;
@@ -27,16 +37,6 @@ function NewQuizForm(props) {
     let val = event.target.value;
 
     setAnswerList({...answerList, [key]: val});
-  }
-
-  const handleQuizSubmission = (event) => {
-    event.preventDefault();
-    props.getQuizData({
-      title: title,
-      questionList: questionList,
-      answerList: answerList,
-      id: v4()
-    });
   }
 
   const populateForm = () => {
