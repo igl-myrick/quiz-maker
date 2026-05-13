@@ -4,6 +4,8 @@ import QuizList from "./QuizList";
 import QuizView from "./QuizView";
 import QuizResults from "./QuizResults";
 import EditQuizForm from "./EditQuizForm";
+import { db, auth } from "./../firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 function QuizControl() {
   const [newFormVisible, setNewFormVisible] = useState(false);
@@ -12,6 +14,7 @@ function QuizControl() {
   const [resultsVisible, setResultsVisible] = useState(false);
   const [resultsData, setResultsData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [authUser, setAuthUser] = useState(null);
 
   const handleClick = () => {
     if (selectedQuiz !== null) {
@@ -60,33 +63,42 @@ function QuizControl() {
     setSelectedQuiz(null);
   }
 
-  let currentlyVisibleState = null;
-  let buttonText = null;
 
-  if (isEditing) {
-    currentlyVisibleState = <EditQuizForm quiz={selectedQuiz} onQuizEdit={handleQuizEdit}/>
-    buttonText = "Back to Quiz List";
-  } else if (resultsVisible) {
-    currentlyVisibleState = <QuizResults resultsData={resultsData}/>
-    buttonText = "Back to Quiz List";
-  } else if (selectedQuiz !== null) {
-    currentlyVisibleState = <QuizView quiz={selectedQuiz} onResultsSubmitted={handleResultsSubmission}/>
-    buttonText = "Back to Quiz List";
-  } else if (newFormVisible) {
-    currentlyVisibleState = <NewQuizForm onQuizCreation={handleQuizCreation}/>
-    buttonText = "Back to Quiz List";
-  } else {
-    currentlyVisibleState = <QuizList quizList={mainQuizList} onPreviewClicked={handleChangingSelectedQuiz} onEditClicked={handleEditClick}/>
-    buttonText = "Add a Quiz";
-  }
+  if (!auth.currentUser) {
+    return (
+      <React.Fragment>
+        <p>You must be signed in to view quizzes!</p>
+      </React.Fragment>
+    )
+  } else if (auth.currentUser) {
+    let currentlyVisibleState = null;
+    let buttonText = null;
 
-  return (
-    <React.Fragment>
-      {currentlyVisibleState}
-      <br/>
-      <button onClick={handleClick}>{buttonText}</button>
-    </React.Fragment>
-  );
+    if (isEditing) {
+      currentlyVisibleState = <EditQuizForm quiz={selectedQuiz} onQuizEdit={handleQuizEdit}/>
+      buttonText = "Back to Quiz List";
+    } else if (resultsVisible) {
+      currentlyVisibleState = <QuizResults resultsData={resultsData}/>
+      buttonText = "Back to Quiz List";
+    } else if (selectedQuiz !== null) {
+      currentlyVisibleState = <QuizView quiz={selectedQuiz} onResultsSubmitted={handleResultsSubmission}/>
+      buttonText = "Back to Quiz List";
+    } else if (newFormVisible) {
+      currentlyVisibleState = <NewQuizForm onQuizCreation={handleQuizCreation}/>
+      buttonText = "Back to Quiz List";
+    } else {
+      currentlyVisibleState = <QuizList quizList={mainQuizList} onPreviewClicked={handleChangingSelectedQuiz} onEditClicked={handleEditClick}/>
+      buttonText = "Add a Quiz";
+    }
+
+    return (
+      <React.Fragment>
+        {currentlyVisibleState}
+        <br/>
+        <button onClick={handleClick}>{buttonText}</button>
+      </React.Fragment>
+    );
+  }  
 }
 
 export default QuizControl;
