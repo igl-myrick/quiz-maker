@@ -23,7 +23,7 @@ function QuizControl() {
     }
   }
 
-  const getQuizData = (newQuiz) => {
+  const handleQuizCreation = (newQuiz) => {
     const newMainQuizList = mainQuizList.concat(newQuiz);
     setMainQuizList(newMainQuizList);
     setNewFormVisible(false);
@@ -34,7 +34,7 @@ function QuizControl() {
     setSelectedQuiz(selection);
   }
 
-  const getQuizResults = (results) => {
+  const handleResultsSubmission = (results) => {
     const { title, questionList, answerList } = selectedQuiz;
     const { userAnswers, resultsId } = results;
 
@@ -70,10 +70,10 @@ function QuizControl() {
     currentlyVisibleState = <QuizResults resultsData={resultsData}/>
     buttonText = "Back to Quiz List";
   } else if (selectedQuiz !== null) {
-    currentlyVisibleState = <QuizView quiz={selectedQuiz} getQuizResults={getQuizResults}/>
+    currentlyVisibleState = <QuizView quiz={selectedQuiz} onResultsSubmitted={handleResultsSubmission}/>
     buttonText = "Back to Quiz List";
   } else if (newFormVisible) {
-    currentlyVisibleState = <NewQuizForm getQuizData={getQuizData}/>
+    currentlyVisibleState = <NewQuizForm onQuizCreation={handleQuizCreation}/>
     buttonText = "Back to Quiz List";
   } else {
     currentlyVisibleState = <QuizList quizList={mainQuizList} onPreviewClicked={handleChangingSelectedQuiz} onEditClicked={handleEditClick}/>
