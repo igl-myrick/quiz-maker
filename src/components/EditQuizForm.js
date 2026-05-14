@@ -47,13 +47,15 @@ function EditQuizForm(props) {
             type="text"
             onChange={getQuestions}
             maxLength={60}
-            placeholder={`${Object.values(quiz.questionList)[i]}`}/>
+            placeholder={`${Object.values(quiz.questionList)[i]}`}
+            required/>
           <input
             name={`answer${i+1}`}
             type="text"
             onChange={getAnswers}
             maxLength={60}
-            placeholder={`${Object.values(quiz.answerList)[i]}`}/>
+            placeholder={`${Object.values(quiz.answerList)[i]}`}
+            required/>
         </div>
       );
     }
@@ -72,11 +74,12 @@ function EditQuizForm(props) {
             type="text"
             onChange={getTitle}
             maxLength={20}
-            placeholder={quiz.title}/><br/>
+            placeholder={quiz.title}
+            required/><br/>
 
             {questionInputs}
 
-            <button type="submit" onClick={handleFormSubmission}>Edit</button>
+            <button type="submit">Edit</button>
         </form>
       </div>
     </React.Fragment>

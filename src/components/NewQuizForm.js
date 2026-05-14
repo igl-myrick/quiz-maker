@@ -51,12 +51,14 @@ function NewQuizForm(props) {
             name={`question${i+1}`}
             type="text"
             onChange={getQuestions}
-            maxLength={60}/>
+            maxLength={60}
+            required/>
           <input
             name={`answer${i+1}`}
             type="text"
             onChange={getAnswers}
-            maxLength={60}/>
+            maxLength={60}
+            required/>
         </div>
       )
     }

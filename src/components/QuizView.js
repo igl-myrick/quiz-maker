@@ -34,7 +34,8 @@ function QuizView(props) {
             name={`question${i+1}`}
             type="text"
             onChange={getAnswers}
-            maxLength={60}/>
+            maxLength={60}
+            required/>
         </div>
       formArr.push(formElem);
     }
