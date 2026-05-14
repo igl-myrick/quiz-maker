@@ -14,7 +14,7 @@ function EditQuizForm(props) {
       questionList: questionList,
       answerList: answerList,
       quizId: quiz.quizId,
-      userId: quiz.userId
+      creatorId: quiz.creatorId
     });
   }
 

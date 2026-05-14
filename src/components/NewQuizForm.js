@@ -23,7 +23,7 @@ function NewQuizForm(props) {
       questionList: questionList,
       answerList: answerList,
       quizId: v4(),
-      userId: auth.currentUser.uid
+      creatorId: auth.currentUser.uid
     });
   }
 

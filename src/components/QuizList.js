@@ -12,7 +12,7 @@ function QuizList(props) {
           questionList={quiz.questionList}
           answerList={quiz.answerList}
           quizId={quiz.quizId}
-          userId={quiz.userId}
+          creatorId={quiz.creatorId}
           key={quiz.quizId}/>
       )}
     </React.Fragment>
