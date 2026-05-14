@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { v4 } from "uuid";
+import { auth } from "../firebase";
 
 function QuizView(props) {
   const [userAnswers, setUserAnswers] = useState({});
@@ -15,7 +16,8 @@ function QuizView(props) {
     event.preventDefault();
     props.onResultsSubmitted({
       userAnswers: userAnswers,
-      resultsId: v4()
+      resultsId: v4(),
+      takerId: auth.currentUser.uid
     });
   }
 

@@ -38,9 +38,9 @@ function QuizControl() {
 
   const handleResultsSubmission = (results) => {
     const { title, questionList, answerList } = selectedQuiz;
-    const { userAnswers, resultsId } = results;
+    const { userAnswers, resultsId, takerId } = results;
 
-    const currentResults = { title, questionList, answerList, userAnswers, resultsId };
+    const currentResults = { title, questionList, answerList, userAnswers, resultsId, takerId };
     setResultsData(currentResults);
 
     setSelectedQuiz(null);
