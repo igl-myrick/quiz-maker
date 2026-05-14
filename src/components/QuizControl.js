@@ -20,6 +20,8 @@ function QuizControl() {
       setNewFormVisible(false);
       setSelectedQuiz(null);
       setIsEditing(false);
+    } else if (resultsVisible) {
+      setResultsVisible(false);
     } else {
       setNewFormVisible(!newFormVisible);
     }
