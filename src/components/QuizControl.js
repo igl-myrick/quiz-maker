@@ -5,7 +5,7 @@ import QuizView from "./QuizView";
 import QuizResults from "./QuizResults";
 import EditQuizForm from "./EditQuizForm";
 import { db, auth } from "./../firebase";
-import { collection, addDoc, onSnapshot, doc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 function QuizControl() {
   const [newFormVisible, setNewFormVisible] = useState(false);
@@ -84,6 +84,11 @@ function QuizControl() {
     setSelectedQuiz(null);
   }
 
+  const handleQuizDeletion = async (id) => {
+    await deleteDoc(doc(db, "quizzes", id));
+    setSelectedQuiz(null);
+  }
+
   if (!auth.currentUser) {
     return (
       <React.Fragment>
@@ -109,7 +114,7 @@ function QuizControl() {
       currentlyVisibleState = <NewQuizForm onQuizCreation={handleQuizCreation}/>
       buttonText = "Back to Quiz List";
     } else {
-      currentlyVisibleState = <QuizList quizList={mainQuizList} onPreviewClicked={handleChangingSelectedQuiz} onEditClicked={handleEditClick}/>
+      currentlyVisibleState = <QuizList quizList={mainQuizList} onPreviewClicked={handleChangingSelectedQuiz} onEditClicked={handleEditClick} onDeleteClicked={handleQuizDeletion}/>
       buttonText = "Add a Quiz";
     }
 
