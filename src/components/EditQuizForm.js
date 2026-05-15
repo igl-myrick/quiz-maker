@@ -13,8 +13,8 @@ function EditQuizForm(props) {
       title: title,
       questionList: questionList,
       answerList: answerList,
-      quizId: quiz.quizId,
-      creatorId: quiz.creatorId
+      creatorId: quiz.creatorId,
+      id: quiz.id
     });
   }
 
