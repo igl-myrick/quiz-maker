@@ -8,6 +8,7 @@ function QuizList(props) {
         <QuizPreview
           onPreviewClicked={props.onPreviewClicked}
           onEditClicked={props.onEditClicked}
+          onDeleteClicked={props.onDeleteClicked}
           title={quiz.title}
           questionList={quiz.questionList}
           answerList={quiz.answerList}
