@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { v4 } from "uuid";
 import { auth } from "../firebase";
 
 function NewQuizForm(props) {
@@ -22,7 +21,6 @@ function NewQuizForm(props) {
       title: title,
       questionList: questionList,
       answerList: answerList,
-      quizId: v4(),
       creatorId: auth.currentUser.uid
     });
   }
