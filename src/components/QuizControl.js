@@ -5,7 +5,7 @@ import QuizView from "./QuizView";
 import QuizResults from "./QuizResults";
 import EditQuizForm from "./EditQuizForm";
 import { db, auth } from "./../firebase";
-import { collection, addDoc, onSnapshot } from "firebase/firestore";
+import { collection, addDoc, onSnapshot, doc, updateDoc } from "firebase/firestore";
 
 function QuizControl() {
   const [newFormVisible, setNewFormVisible] = useState(false);
@@ -27,7 +27,7 @@ function QuizControl() {
             questionList: doc.data().questionList,
             answerList: doc.data().answerList,
             creatorId: doc.data().creatorId,
-            quizId: doc.id
+            id: doc.id
           });
         });
         setMainQuizList(quizzes);
@@ -58,7 +58,7 @@ function QuizControl() {
   }
 
   const handleChangingSelectedQuiz = (id) => {
-    const selection = mainQuizList.find(quiz => quiz.quizId === id);
+    const selection = mainQuizList.find(quiz => quiz.id === id);
     setSelectedQuiz(selection);
   }
 
@@ -78,12 +78,8 @@ function QuizControl() {
     setIsEditing(true);
   }
 
-  const handleQuizEdit = (quizToEdit) => {
-    const editedQuizList = mainQuizList.map(quiz =>
-      quiz.quizId === selectedQuiz.quizId ? quizToEdit : quiz
-    );
-
-    setMainQuizList(editedQuizList);
+  const handleQuizEdit = async (quizToEdit) => {
+    await updateDoc(doc(db, "quizzes", quizToEdit.id), quizToEdit);
     setIsEditing(false);
     setSelectedQuiz(null);
   }
