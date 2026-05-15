@@ -102,19 +102,34 @@ function QuizControl() {
     if (error) {
       currentlyVisibleState = <p>There was an error: {error}</p>
     } else if (isEditing) {
-      currentlyVisibleState = <EditQuizForm quiz={selectedQuiz} onQuizEdit={handleQuizEdit}/>
+      currentlyVisibleState = 
+        <EditQuizForm 
+          quiz={selectedQuiz}
+          onQuizEdit={handleQuizEdit}/>
       buttonText = "Back to Quiz List";
     } else if (resultsVisible) {
-      currentlyVisibleState = <QuizResults resultsData={resultsData}/>
+      currentlyVisibleState =
+         <QuizResults
+           resultsData={resultsData}/>
       buttonText = "Back to Quiz List";
     } else if (selectedQuiz !== null) {
-      currentlyVisibleState = <QuizView quiz={selectedQuiz} onResultsSubmitted={handleResultsSubmission}/>
+      currentlyVisibleState =
+        <QuizView
+          quiz={selectedQuiz}
+          onResultsSubmitted={handleResultsSubmission}/>
       buttonText = "Back to Quiz List";
     } else if (newFormVisible) {
-      currentlyVisibleState = <NewQuizForm onQuizCreation={handleQuizCreation}/>
+      currentlyVisibleState =
+        <NewQuizForm
+          onQuizCreation={handleQuizCreation}/>
       buttonText = "Back to Quiz List";
     } else {
-      currentlyVisibleState = <QuizList quizList={mainQuizList} onPreviewClicked={handleChangingSelectedQuiz} onEditClicked={handleEditClick} onDeleteClicked={handleQuizDeletion}/>
+      currentlyVisibleState =
+        <QuizList
+          quizList={mainQuizList}
+          onPreviewClicked={handleChangingSelectedQuiz}
+          onEditClicked={handleEditClick}
+          onDeleteClicked={handleQuizDeletion}/>
       buttonText = "Add a Quiz";
     }
 
