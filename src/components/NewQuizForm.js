@@ -51,6 +51,7 @@ function NewQuizForm(props) {
             onChange={getQuestions}
             maxLength={60}
             required/>
+          <p>Answer #{i+1}</p>
           <input
             name={`answer${i+1}`}
             type="text"
@@ -71,7 +72,7 @@ function NewQuizForm(props) {
         <p>Before we get started, how many questions should your quiz have?</p>
         <input id="number" type="number" max={15} required/>
         <p>Next, what should the title of your quiz be?</p>
-        <input id="title" type="text" maxLength={60} required/>
+        <input id="title" type="text" maxLength={60} required/><br/>
         <button type="submit">Submit</button>
       </form>
   } else {
