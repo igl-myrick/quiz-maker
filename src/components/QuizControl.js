@@ -11,8 +11,7 @@ function QuizControl() {
   const [newFormVisible, setNewFormVisible] = useState(false);
   const [mainQuizList, setMainQuizList] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
-  const [resultsVisible, setResultsVisible] = useState(false);
-  const [resultsData, setResultsData] = useState([]);
+  const [selectedResults, setSelectedResults] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState(null);
 
@@ -41,12 +40,11 @@ function QuizControl() {
   }, []);
 
   const handleClick = () => {
-    if (selectedQuiz !== null) {
+    if (selectedQuiz !== null || selectedResults !== null) {
       setNewFormVisible(false);
       setSelectedQuiz(null);
+      setSelectedResults(null);
       setIsEditing(false);
-    } else if (resultsVisible) {
-      setResultsVisible(false);
     } else {
       setNewFormVisible(!newFormVisible);
     }
@@ -62,15 +60,14 @@ function QuizControl() {
     setSelectedQuiz(selection);
   }
 
-  const handleResultsSubmission = (results) => {
+  const handleResultsSubmission = async (results) => {
     const { title, questionList, answerList } = selectedQuiz;
-    const { userAnswers, resultsId, takerId } = results;
+    const { userAnswers, takerId } = results;
+    const currentResults = { title, questionList, answerList, userAnswers, takerId };
 
-    const currentResults = { title, questionList, answerList, userAnswers, resultsId, takerId };
-    setResultsData(currentResults);
-
+    await addDoc(collection(db, "results"), currentResults);
     setSelectedQuiz(null);
-    setResultsVisible(true);
+    setSelectedResults(currentResults);
   }
 
   const handleEditClick = (id) => {
@@ -107,10 +104,10 @@ function QuizControl() {
           quiz={selectedQuiz}
           onQuizEdit={handleQuizEdit}/>
       buttonText = "Back to Quiz List";
-    } else if (resultsVisible) {
+    } else if (selectedResults !== null) {
       currentlyVisibleState =
          <QuizResults
-           resultsData={resultsData}/>
+           results={selectedResults}/>
       buttonText = "Back to Quiz List";
     } else if (selectedQuiz !== null) {
       currentlyVisibleState =
