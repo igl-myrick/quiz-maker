@@ -4,6 +4,7 @@ import QuizList from "./QuizList";
 import QuizView from "./QuizView";
 import QuizResults from "./QuizResults";
 import EditQuizForm from "./EditQuizForm";
+import UserHistory from "./UserHistory";
 import { db, auth } from "./../firebase";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
@@ -14,6 +15,7 @@ function QuizControl() {
   const [selectedResults, setSelectedResults] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState(null);
+  const [historyVisible, setHistoryVisible] = useState(false);
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -45,9 +47,15 @@ function QuizControl() {
       setSelectedQuiz(null);
       setSelectedResults(null);
       setIsEditing(false);
+    } else if (historyVisible) {
+      setHistoryVisible(false);
     } else {
       setNewFormVisible(!newFormVisible);
     }
+  }
+
+  const showHistory = () => {
+    setHistoryVisible(true);
   }
 
   const handleQuizCreation = async (newQuiz) => {
@@ -120,13 +128,19 @@ function QuizControl() {
         <NewQuizForm
           onQuizCreation={handleQuizCreation}/>
       buttonText = "Back to Quiz List";
+    } else if (historyVisible) {
+      currentlyVisibleState = <UserHistory/>
+      buttonText = "Back to Quiz List";
     } else {
       currentlyVisibleState =
-        <QuizList
-          quizList={mainQuizList}
-          onPreviewClicked={handleChangingSelectedQuiz}
-          onEditClicked={handleEditClick}
-          onDeleteClicked={handleQuizDeletion}/>
+        <div>
+          <QuizList
+            quizList={mainQuizList}
+            onPreviewClicked={handleChangingSelectedQuiz}
+            onEditClicked={handleEditClick}
+            onDeleteClicked={handleQuizDeletion}/>
+          <button type="button" onClick={showHistory}>See your history</button>
+        </div>
       buttonText = "Add a Quiz";
     }
 
