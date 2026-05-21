@@ -1,7 +1,7 @@
 import React from "react";
 import { auth } from "../firebase";
 
-function Quiz(props) {
+function QuizPreview(props) {
   const {title, questionList, id, creatorId, onPreviewClicked, onEditClicked, onDeleteClicked } = props;
 
   let editBtn = null;
@@ -27,4 +27,4 @@ function Quiz(props) {
   );
 }
 
-export default Quiz;
+export default QuizPreview;
