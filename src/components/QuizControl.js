@@ -4,9 +4,9 @@ import QuizList from "./QuizList";
 import QuizView from "./QuizView";
 import QuizResults from "./QuizResults";
 import EditQuizForm from "./EditQuizForm";
-import UserHistory from "./UserHistory";
 import { db, auth } from "./../firebase";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import ResultsList from "./ResultsList";
 
 function QuizControl() {
   const [newFormVisible, setNewFormVisible] = useState(false);
@@ -16,6 +16,7 @@ function QuizControl() {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState(null);
   const [historyVisible, setHistoryVisible] = useState(false);
+  const [mainResultsList, setMainResultsList] = useState([]);
 
   useEffect(() => {
     const unsub = onSnapshot(
@@ -41,6 +42,32 @@ function QuizControl() {
     return () => unsub();
   }, []);
 
+  useEffect(() => {
+    const unsub = onSnapshot(
+      collection(db, "results"),
+      (collectionSnapshot) => {
+        const results = [];
+        collectionSnapshot.forEach((doc) => {
+          results.push({
+            title: doc.data().title,
+            questionList: doc.data().questionList,
+            answerList: doc.data().answerList,
+            userAnswers: doc.data().userAnswers,
+            takerId: doc.data().takerId,
+            id: doc.id
+          });
+        });
+        const userResults = results.filter(results => results.takerId === auth.currentUser.uid);
+        setMainResultsList(userResults);
+      },
+      (error) => {
+        setError(error.message);
+      }
+    );
+
+    return () => unsub();
+  }, []);
+
   const handleClick = () => {
     if (selectedQuiz !== null || selectedResults !== null) {
       setNewFormVisible(false);
@@ -54,10 +81,6 @@ function QuizControl() {
     }
   }
 
-  const showHistory = () => {
-    setHistoryVisible(true);
-  }
-
   const handleQuizCreation = async (newQuiz) => {
     await addDoc(collection(db, "quizzes"), newQuiz);
     setNewFormVisible(false);
@@ -66,16 +89,6 @@ function QuizControl() {
   const handleChangingSelectedQuiz = (id) => {
     const selection = mainQuizList.find(quiz => quiz.id === id);
     setSelectedQuiz(selection);
-  }
-
-  const handleResultsSubmission = async (results) => {
-    const { title, questionList, answerList } = selectedQuiz;
-    const { userAnswers, takerId } = results;
-    const currentResults = { title, questionList, answerList, userAnswers, takerId };
-
-    await addDoc(collection(db, "results"), currentResults);
-    setSelectedQuiz(null);
-    setSelectedResults(currentResults);
   }
 
   const handleEditClick = (id) => {
@@ -92,6 +105,25 @@ function QuizControl() {
   const handleQuizDeletion = async (id) => {
     await deleteDoc(doc(db, "quizzes", id));
     setSelectedQuiz(null);
+  }
+
+  const handleResultsSubmission = async (results) => {
+    const { title, questionList, answerList } = selectedQuiz;
+    const { userAnswers, takerId } = results;
+    const currentResults = { title, questionList, answerList, userAnswers, takerId };
+
+    await addDoc(collection(db, "results"), currentResults);
+    setSelectedQuiz(null);
+    setSelectedResults(currentResults);
+  }
+
+  const showHistory = () => {
+    setHistoryVisible(true);
+  }
+
+  const showResults = (id) => {
+    const selection = mainResultsList.find(quiz => quiz.id === id);
+    setSelectedResults(selection);
   }
 
   if (!auth.currentUser) {
@@ -114,9 +146,13 @@ function QuizControl() {
       buttonText = "Back to Quiz List";
     } else if (selectedResults !== null) {
       currentlyVisibleState =
-         <QuizResults
-           results={selectedResults}/>
-      buttonText = "Back to Quiz List";
+        <QuizResults
+          results={selectedResults}/>
+      if (historyVisible) {
+        buttonText = "Back to History"
+      } else {
+        buttonText = "Back to Quiz List";
+      }
     } else if (selectedQuiz !== null) {
       currentlyVisibleState =
         <QuizView
@@ -129,7 +165,10 @@ function QuizControl() {
           onQuizCreation={handleQuizCreation}/>
       buttonText = "Back to Quiz List";
     } else if (historyVisible) {
-      currentlyVisibleState = <UserHistory/>
+      currentlyVisibleState =
+        <ResultsList
+          resultsList={mainResultsList}
+          onPreviewClicked={showResults}/>
       buttonText = "Back to Quiz List";
     } else {
       currentlyVisibleState =
