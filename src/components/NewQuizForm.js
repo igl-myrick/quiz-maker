@@ -44,15 +44,15 @@ function NewQuizForm(props) {
     for (let i = 0; i < questionCount; i++) {
       inputList.push(
         <div key={i}>
-          <p>Question #{i+1}</p>
           <input
+            placeholder={`Question ${i+1}`}
             name={`question${i+1}`}
             type="text"
             onChange={getQuestions}
             maxLength={60}
             required/>
-          <p>Answer #{i+1}</p>
           <input
+            placeholder={`Answer ${i+1}`}
             name={`answer${i+1}`}
             type="text"
             onChange={getAnswers}
