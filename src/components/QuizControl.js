@@ -108,9 +108,9 @@ function QuizControl() {
   }
 
   const handleResultsSubmission = async (results) => {
-    const { title, questionList, answerList } = selectedQuiz;
+    const quizId = selectedQuiz.id;
     const { userAnswers, takerId } = results;
-    const currentResults = { title, questionList, answerList, userAnswers, takerId };
+    const currentResults = { userAnswers, takerId, quizId };
 
     await addDoc(collection(db, "results"), currentResults);
     setSelectedQuiz(null);
