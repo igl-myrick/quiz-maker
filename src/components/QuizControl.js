@@ -50,9 +50,9 @@ function QuizControl() {
         collectionSnapshot.forEach((doc) => {
           results.push({
             title: doc.data().title,
-            questionList: doc.data().questionList,
-            answerList: doc.data().answerList,
+            questionCount: doc.data().questionCount,
             userAnswers: doc.data().userAnswers,
+            quizId: doc.data().quizId,
             takerId: doc.data().takerId,
             id: doc.id
           });
@@ -108,12 +108,13 @@ function QuizControl() {
   }
 
   const handleResultsSubmission = async (results) => {
-    const quizId = selectedQuiz.id;
     const { userAnswers, takerId } = results;
-    const currentResults = { userAnswers, takerId, quizId };
+    const quizId = selectedQuiz.id;
+    const title = selectedQuiz.title;
+    const questionCount = Object.entries(selectedQuiz.questionList).length;
+    const currentResults = { title, userAnswers, questionCount, takerId, quizId };
 
     await addDoc(collection(db, "results"), currentResults);
-    setSelectedQuiz(null);
     setSelectedResults(currentResults);
   }
 
@@ -147,7 +148,8 @@ function QuizControl() {
     } else if (selectedResults !== null) {
       currentlyVisibleState =
         <QuizResults
-          results={selectedResults}/>
+          results={selectedResults}
+          quiz={selectedQuiz}/>
       if (historyVisible) {
         buttonText = "Back to History"
       } else {
@@ -168,6 +170,7 @@ function QuizControl() {
       currentlyVisibleState =
         <ResultsList
           resultsList={mainResultsList}
+          quizList={mainQuizList}
           onPreviewClicked={showResults}/>
       buttonText = "Back to Quiz List";
     } else {
