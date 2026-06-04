@@ -10,17 +10,17 @@ function QuizResults(props) {
 
   const displayResults = () => {
     const output = [];
-    for (let i = 0; i < Object.entries(props.results.questionList).length; i++) {
+    for (let i = 0; i < props.results.questionCount; i++) {
       let elemStyle = null;
-      if (trimInput(Object.values(props.results.answerList)[i]) === trimInput(Object.values(props.results.userAnswers)[i])) {
+      if (trimInput(Object.values(props.quiz.answerList)[i]) === trimInput(Object.values(props.results.userAnswers)[i])) {
         elemStyle = styleCorrect;
       } else {
         elemStyle = styleWrong;
       }
       output.push(
         <div key={i}>
-          <p><strong>Question {i + 1}: {Object.values(props.results.questionList)[i]}</strong></p>
-          <p>Answer: {Object.values(props.results.answerList)[i]}</p>
+          <p><strong>Question {i + 1}: {Object.values(props.quiz.questionList)[i]}</strong></p>
+          <p>Answer: {Object.values(props.quiz.answerList)[i]}</p>
           <p style={elemStyle}>Your answer: {Object.values(props.results.userAnswers)[i]}</p>
         </div>
       );
