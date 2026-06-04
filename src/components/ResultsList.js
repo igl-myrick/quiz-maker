@@ -9,7 +9,7 @@ function ResultsList(props) {
         <ResultsPreview
           onPreviewClicked={props.onPreviewClicked}
           title={results.title}
-          questionList={results.questionList}
+          questionCount={results.questionCount}
           id={results.id}
           key={results.id}/>
       )}
