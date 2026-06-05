@@ -123,8 +123,10 @@ function QuizControl() {
   }
 
   const showResults = (id) => {
-    const selection = mainResultsList.find(quiz => quiz.id === id);
-    setSelectedResults(selection);
+    const resultsSelection = mainResultsList.find(results => results.id === id);
+    const quizSelection = mainQuizList.find(quiz => quiz.id === resultsSelection.quizId);
+    setSelectedResults(resultsSelection);
+    setSelectedQuiz(quizSelection);
   }
 
   if (!auth.currentUser) {
