@@ -10,6 +10,7 @@ function ResultsList(props) {
           onPreviewClicked={props.onPreviewClicked}
           title={results.title}
           questionCount={results.questionCount}
+          quizId={results.quizId}
           id={results.id}
           key={results.id}/>
       )}
