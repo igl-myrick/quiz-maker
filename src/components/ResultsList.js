@@ -1,5 +1,6 @@
 import React from "react";
 import ResultsPreview from "./ResultsPreview";
+import PropTypes from "prop-types";
 
 function ResultsList(props) {
   let currentlyVisibleState = null;
@@ -10,7 +11,6 @@ function ResultsList(props) {
         onPreviewClicked={props.onPreviewClicked}
         title={results.title}
         questionCount={results.questionCount}
-        quizId={results.quizId}
         id={results.id}
         key={results.id}/>
     );
@@ -23,7 +23,12 @@ function ResultsList(props) {
       <h4>Your History</h4>
       {currentlyVisibleState}
     </React.Fragment>
-  )
+  );
+}
+
+ResultsList.propTypes = {
+  resultsList: PropTypes.array,
+  onPreviewClicked: PropTypes.func
 }
 
 export default ResultsList;
