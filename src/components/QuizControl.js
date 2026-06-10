@@ -174,7 +174,6 @@ function QuizControl() {
       currentlyVisibleState =
         <ResultsList
           resultsList={mainResultsList}
-          quizList={mainQuizList}
           onPreviewClicked={showResults}/>
       buttonText = "Back to Quiz List";
     } else {
