@@ -43,29 +43,31 @@ function QuizControl() {
   }, []);
 
   useEffect(() => {
-    const unsub = onSnapshot(
-      collection(db, "results"),
-      (collectionSnapshot) => {
-        const results = [];
-        collectionSnapshot.forEach((doc) => {
-          results.push({
-            title: doc.data().title,
-            questionCount: doc.data().questionCount,
-            userAnswers: doc.data().userAnswers,
-            quizId: doc.data().quizId,
-            takerId: doc.data().takerId,
-            id: doc.id
+    if (auth.currentUser) {
+      const unsub = onSnapshot(
+        collection(db, "results"),
+        (collectionSnapshot) => {
+          const results = [];
+          collectionSnapshot.forEach((doc) => {
+            results.push({
+              title: doc.data().title,
+              questionCount: doc.data().questionCount,
+              userAnswers: doc.data().userAnswers,
+              quizId: doc.data().quizId,
+              takerId: doc.data().takerId,
+              id: doc.id
+            });
           });
-        });
-        const userResults = results.filter(results => results.takerId === auth.currentUser.uid);
-        setMainResultsList(userResults);
-      },
-      (error) => {
-        setError(error.message);
-      }
-    );
+          const userResults = results.filter(results => results.takerId === auth.currentUser.uid);
+          setMainResultsList(userResults);
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
 
-    return () => unsub();
+      return () => unsub(); 
+    }
   }, []);
 
   const handleClick = () => {
