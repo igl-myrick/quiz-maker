@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "./../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import PropTypes from "prop-types";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -47,6 +48,10 @@ const Register = (props) => {
       </div>
     </React.Fragment>
   );
+}
+
+Register.propTypes = {
+  hideRegister: PropTypes.func
 }
 
 export default Register;

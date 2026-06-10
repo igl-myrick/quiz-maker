@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function Header(props) {
   const { toggleControlState, buttonText } = props;
@@ -9,6 +10,11 @@ function Header(props) {
       <button type="button" id="quiz-button" onClick={toggleControlState}>{buttonText}</button>
     </React.Fragment>
   );
+}
+
+Header.propTypes = {
+  buttonText: PropTypes.string,
+  toggleControlState: PropTypes.func
 }
 
 export default Header;

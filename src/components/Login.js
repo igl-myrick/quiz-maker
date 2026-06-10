@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "./../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import PropTypes from "prop-types";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -47,6 +48,10 @@ const Login = (props) => {
       </div>
     </React.Fragment>
   );
+}
+
+Login.propTypes = {
+  hideLogin: PropTypes.func
 }
 
 export default Login;
