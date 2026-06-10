@@ -19,8 +19,21 @@ function QuizView(props) {
     });
   }
 
+  const sortObj = (obj) => {
+    const sortedObj = Object.entries(obj).sort(([keyA], [keyB]) => 
+      keyA.localeCompare(keyB)
+    );
+    const output = [];
+    for (let i = 0; i < sortedObj.length; i++) {
+      output.push(sortedObj[i][1]);
+    }
+    return output;
+  }
+
+  const sortedQuestionList = sortObj(props.quiz.questionList);
+
   const populateForm = () => {
-    const questionValues = Object.values(props.quiz.questionList);
+    const questionValues = sortedQuestionList;
     let formArr = [];
 
     for (let i = 0; i < questionValues.length; i++) {
