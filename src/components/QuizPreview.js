@@ -1,5 +1,6 @@
 import React from "react";
 import { auth } from "../firebase";
+import PropTypes from "prop-types";
 
 function QuizPreview(props) {
   const {title, questionList, id, creatorId, onPreviewClicked, onEditClicked, onDeleteClicked } = props;
@@ -25,6 +26,16 @@ function QuizPreview(props) {
       </div>
     </React.Fragment>
   );
+}
+
+QuizPreview.propTypes = {
+  onPreviewClicked: PropTypes.func,
+  onEditClicked: PropTypes.func,
+  onDeleteClicked: PropTypes.func,
+  title: PropTypes.string,
+  questionList: PropTypes.object,
+  id: PropTypes.string,
+  creatorId: PropTypes.string
 }
 
 export default QuizPreview;

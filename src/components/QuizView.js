@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../firebase";
+import PropTypes from "prop-types";
 
 function QuizView(props) {
   const [userAnswers, setUserAnswers] = useState({});
@@ -65,6 +66,11 @@ function QuizView(props) {
       </form>
     </React.Fragment>
   );
+}
+
+QuizView.propTypes = {
+  quiz: PropTypes.object,
+  onResultsSubmitted: PropTypes.func
 }
 
 export default QuizView;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 function EditQuizForm(props) {
   const { quiz, onQuizEdit } = props;
@@ -84,6 +85,11 @@ function EditQuizForm(props) {
       </div>
     </React.Fragment>
   );
+}
+
+EditQuizForm.propTypes = {
+  quiz: PropTypes.object,
+  onQuizEdit: PropTypes.func
 }
 
 export default EditQuizForm;

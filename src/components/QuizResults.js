@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function QuizResults(props) {
   const styleCorrect = { color: "green" };
@@ -51,6 +52,11 @@ function QuizResults(props) {
       {elems}
     </React.Fragment>
   );
+}
+
+QuizResults.propTypes = {
+  quiz: PropTypes.object,
+  results: PropTypes.object
 }
 
 export default QuizResults;

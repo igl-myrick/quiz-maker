@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function ResultsPreview(props) {
   const { title, questionCount, onPreviewClicked, id } = props;
@@ -12,6 +13,13 @@ function ResultsPreview(props) {
       </div>
     </React.Fragment>
   );
+}
+
+ResultsPreview.propTypes = {
+  onPreviewClicked: PropTypes.func,
+  title: PropTypes.string,
+  questionCount: PropTypes.number,
+  id: PropTypes.string
 }
 
 export default ResultsPreview;

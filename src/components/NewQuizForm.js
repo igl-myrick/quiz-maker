@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { auth } from "../firebase";
+import PropTypes from "prop-types";
 
 function NewQuizForm(props) {
   const [setupDivVisible, setSetupDivVisible] = useState(true);
@@ -59,7 +60,7 @@ function NewQuizForm(props) {
             maxLength={60}
             required/>
         </div>
-      )
+      );
     }
     return inputList;
   }
@@ -93,6 +94,10 @@ function NewQuizForm(props) {
       {currentlyVisibleState}
     </React.Fragment>
   );
+}
+
+NewQuizForm.propTypes = {
+  onQuizCreation: PropTypes.func
 }
 
 export default NewQuizForm;
