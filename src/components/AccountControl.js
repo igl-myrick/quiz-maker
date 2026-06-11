@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Register from "./Register.js";
-import Login from "./Login.js";
+import RegisterForm from "./RegisterForm.js";
+import LoginForm from "./LoginForm.js";
 import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 function AccountControl() {
-  const [registerVisible, setRegisterVisible] = useState(false);
-  const [loginVisible, setLoginVisible] = useState(false);
+  const [registerFormVisible, setRegisterFormVisible] = useState(false);
+  const [loginFormVisible, setLoginFormVisible] = useState(false);
   const [authUser, setAuthUser] = useState(null);
 
   useEffect(() => {
@@ -27,28 +27,28 @@ function AccountControl() {
     signOut(auth);
   }
 
-  const showRegister = () => {
-    setRegisterVisible(true);
+  const showRegisterForm = () => {
+    setRegisterFormVisible(true);
   }
 
-  const hideRegister = () => {
-    setRegisterVisible(false);
+  const hideRegisterForm = () => {
+    setRegisterFormVisible(false);
   }
 
-  const showLogin = () => {
-    setLoginVisible(true);
+  const showLoginForm = () => {
+    setLoginFormVisible(true);
   }
 
-  const hideLogin = () => {
-    setLoginVisible(false);
+  const hideLoginForm = () => {
+    setLoginFormVisible(false);
   }
 
   let currentlyVisibleState = null;
 
-  if (registerVisible) {
-    currentlyVisibleState = <Register hideRegister={hideRegister}/>;
-  } else if (loginVisible) {
-    currentlyVisibleState = <Login hideLogin={hideLogin}/>;
+  if (registerFormVisible) {
+    currentlyVisibleState = <RegisterForm hideRegisterForm={hideRegisterForm}/>;
+  } else if (loginFormVisible) {
+    currentlyVisibleState = <LoginForm hideLoginForm={hideLoginForm}/>;
   } else if (authUser) {
     currentlyVisibleState =
       <div>
@@ -60,8 +60,8 @@ function AccountControl() {
     currentlyVisibleState = 
       <div>
         <h4>Manage Account</h4>
-        <button type="button" onClick={showLogin}>Login</button>
-        <button type="button" onClick={showRegister}>Register</button>
+        <button type="button" onClick={showLoginForm}>Login</button>
+        <button type="button" onClick={showRegisterForm}>Register</button>
       </div>
   }
 
