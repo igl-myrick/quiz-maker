@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { auth } from "./../firebase";
+import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import PropTypes from "prop-types";
 
-const Login = (props) => {
+function LoginForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ const Login = (props) => {
   const logUserIn = (event) => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => props.hideLogin())
+      .then(() => props.hideLoginForm())
       .catch((error) => {
         setError(error);
       });
@@ -44,14 +44,14 @@ const Login = (props) => {
         </form>
         {currentlyVisibleState}
         
-        <button type="button" onClick={props.hideLogin}>Back to Accounts</button>
+        <button type="button" onClick={props.hideLoginForm}>Back to Accounts</button>
       </div>
     </React.Fragment>
   );
 }
 
-Login.propTypes = {
-  hideLogin: PropTypes.func
+LoginForm.propTypes = {
+  hideLoginForm: PropTypes.func
 }
 
-export default Login;
+export default LoginForm;
