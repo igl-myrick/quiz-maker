@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { auth } from "./../firebase";
+import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import PropTypes from "prop-types";
 
-const Register = (props) => {
+function RegisterForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ const Register = (props) => {
   const registerUser = (event) => {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => props.hideRegister())
+      .then(() => props.hideRegisterForm())
       .catch((error) => {
         setError(error);
       });
@@ -44,14 +44,14 @@ const Register = (props) => {
         </form>
         {currentlyVisibleState}
 
-        <button type="button" onClick={props.hideRegister}>Back to Accounts</button>
+        <button type="button" onClick={props.hideRegisterForm}>Back to Accounts</button>
       </div>
     </React.Fragment>
   );
 }
 
-Register.propTypes = {
-  hideRegister: PropTypes.func
+RegisterForm.propTypes = {
+  hideRegisterForm: PropTypes.func
 }
 
-export default Register;
+export default RegisterForm;
