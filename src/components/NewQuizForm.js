@@ -26,18 +26,11 @@ function NewQuizForm(props) {
     });
   }
 
-  const getQuestions = (event) => {
+  const getValues = (event, state, setState) => {
     let key = event.target.name;
     let val = event.target.value;
 
-    setQuestionList({...questionList, [key]: val});
-  }
-
-  const getAnswers = (event) => {
-    let key = event.target.name;
-    let val = event.target.value;
-
-    setAnswerList({...answerList, [key]: val});
+    setState({...state, [key]: val});
   }
 
   const populateForm = () => {
@@ -49,14 +42,14 @@ function NewQuizForm(props) {
             placeholder={`Question ${i+1}`}
             name={`question${i+1}`}
             type="text"
-            onChange={getQuestions}
+            onChange={(event) => {getValues(event, questionList, setQuestionList)}}
             maxLength={60}
             required/>
           <input
             placeholder={`Answer ${i+1}`}
             name={`answer${i+1}`}
             type="text"
-            onChange={getAnswers}
+            onChange={(event) => {getValues(event, answerList, setAnswerList)}}
             maxLength={60}
             required/>
         </div>
