@@ -19,22 +19,15 @@ function EditQuizForm(props) {
     });
   }
 
+  const getValues = (event, state, setState) => {
+    let key = event.target.name;
+    let val = event.target.value;
+
+    setState({...state, [key]: val});
+  }
+
   const getTitle = (event) => {
     setTitle(event.target.value);
-  }
-
-  const getQuestions = (event) => {
-    let key = event.target.name;
-    let val = event.target.value;
-
-    setQuestionList({...questionList, [key]: val});
-  }
-
-  const getAnswers = (event) => {
-    let key = event.target.name;
-    let val = event.target.value;
-
-    setAnswerList({...answerList, [key]: val});
   }
 
   const populateForm = () => {
@@ -46,14 +39,14 @@ function EditQuizForm(props) {
           <input
             name={`question${i+1}`}
             type="text"
-            onChange={getQuestions}
+            onChange={(event) => getValues(event, questionList, setQuestionList)}
             maxLength={60}
             placeholder={`${Object.values(quiz.questionList)[i]}`}
             required/>
           <input
             name={`answer${i+1}`}
             type="text"
-            onChange={getAnswers}
+            onChange={(event) => getValues(event, answerList, setAnswerList)}
             maxLength={60}
             placeholder={`${Object.values(quiz.answerList)[i]}`}
             required/>
