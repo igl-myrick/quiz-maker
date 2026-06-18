@@ -30,6 +30,20 @@ function EditQuizForm(props) {
     setTitle(event.target.value);
   }
 
+  const sortObj = (obj) => {
+    const sortedObj = Object.entries(obj).sort(([keyA], [keyB]) => 
+      keyA.localeCompare(keyB)
+    );
+    const output = [];
+    for (let i = 0; i < sortedObj.length; i++) {
+      output.push(sortedObj[i][1]);
+    }
+    return output;
+  }
+
+  const sortedQuestionList = sortObj(quiz.questionList);
+  const sortedAnswerList = sortObj(quiz.answerList);
+
   const populateForm = () => {
     let inputList = [];
     for (let i = 0; i < Object.values(quiz.questionList).length; i++) {
@@ -41,14 +55,14 @@ function EditQuizForm(props) {
             type="text"
             onChange={(event) => getValues(event, questionList, setQuestionList)}
             maxLength={60}
-            placeholder={`${Object.values(quiz.questionList)[i]}`}
+            placeholder={`${Object.values(sortedQuestionList)[i]}`}
             required/>
           <input
             name={`answer${i+1}`}
             type="text"
             onChange={(event) => getValues(event, answerList, setAnswerList)}
             maxLength={60}
-            placeholder={`${Object.values(quiz.answerList)[i]}`}
+            placeholder={`${Object.values(sortedAnswerList)[i]}`}
             required/>
         </div>
       );
