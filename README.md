@@ -9,7 +9,6 @@
 * _Javascript_
 * _HTML_
 * _CSS_
-* _Bootstrap_
 * _Webpack_
 * _Node.js_
 * _React.js_
@@ -36,9 +35,28 @@ _3: Next, run `npm run build` to build the program._
 
 _4: Once the program is built, run `npm run start` to open and use the program._
 
+## Project Plans
+
+* _Database Refactor (results stored as: data [ question: 'aaa', answer: 'bbb', userAnswer: 'ccc', order: 001 ])_
+
+* _Add some way for users to have a list of results, and indicate a question should give points towards a given result. Potentially have users pick during quiz setup between creating a simple school test-style quiz where they are only given a % score at the end, or a more complex personality test-style quiz with math for calculating each of the quiz creator's results._
+
+* _Rewrite in TypeScript?_
+
+* _Smaller refactors_
+  * _Refactor new quiz form to be able to add up to 100 questions, and/or allowing users to add and remove questions as they go_
+  * _Additionally refactor NewQuizForm to include:_
+    * _option to choose between test or personality quiz_
+    * _% calculation for test style quizzes_
+    * _input creator's possible answers for personality quizzes_
+    * _radio form for what answer a personality quiz question will point towards?_
+  * _Allow users to pick between text or radio for a quiz question (only radio allowed for personality quizzes). Max 6? for radio questions. Needs more research_
+
+* _Add styling and light/dark/color themes_
+
 ## Known Bugs
 
-* _None at the moment._
+* _If a quiz is edited or deleted, accessing results of the quiz taken before the quiz was altered can potentially break the site. Need to rework the database schema to fix this._
 
 ## License
 
